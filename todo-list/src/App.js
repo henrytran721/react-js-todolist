@@ -46,13 +46,13 @@ function MainBody(props) {
       <header>
       <h1>To-Do List</h1>
       </header>
-      <div className='todoContainer'>
+      <form className='todoContainer' onSubmit={props.onAddTask}>
         <input type='text'
           value={props.taskValue}
           onChange={props.onChange}
         />
-        <button className='addBtn' onClick={() => props.onAddTask()}><span>Add Task</span></button>
-      </div>
+        <button type='submit' className='addBtn' onSubmit={(e) => props.onAddTask(e)}><span>Add Task</span></button>
+      </form>
       <div className='completedContainer'>
         <h1>Completed Tasks</h1>
         <ul>
@@ -129,8 +129,9 @@ class App extends Component {
     localStorage.setItem('task', taskValue);
   }
 
-  addTask() {
-
+  addTask(e) {
+    e.preventDefault();
+    
     let keys = Object.keys(backgroundColors);
     let color = backgroundColors[keys[keys.length * Math.random() << 0]];
     if(this.state.input === '') {
